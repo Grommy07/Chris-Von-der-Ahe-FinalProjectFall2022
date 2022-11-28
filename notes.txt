@@ -1,0 +1,16 @@
+---------------- To-do ----------------
+
+Make funcitoning walls
+
+Make camera follow player
+
+Create moving enemies
+    - stay a certain distance from walls
+        - cant enter through tight doorways
+    - randomly turn
+    - kill player if they enter direction they are moving
+    - die if touched (stealth)
+
+Create stationary enemies
+    - similar to moving enemies but stay still
+    - 
