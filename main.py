@@ -72,8 +72,8 @@ class Player(Sprite):
         self.acc.y += self.vel.y * -0.1
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
-        # self.rect.x += self.xvel
-        # self.rect.y += self.yvel
+        #self.rect.x += self.xvel
+        #self.rect.y += self.yvel
         self.rect.midbottom = self.pos
 # makes walls prevent player from moving in their space on x axis
     def collide_with_walls(self, dir):
