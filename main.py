@@ -25,9 +25,13 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+TURQ = (51, 255, 221)
+MURK = (0, 77, 77)
+DARKLAVA = (77, 13, 0)
+
 
 #places colors in a group for easy access
-colorlist = (WHITE, BLACK, RED, GREEN, BLUE)
+colorlist = (WHITE, BLACK, RED, GREEN, BLUE, TURQ, MURK, DARKLAVA)
 
 
 def draw_text(text, size, color, x, y):
