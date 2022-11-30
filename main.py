@@ -136,10 +136,12 @@ class Player(Sprite):
 
 # platforms: simple rectangles and obstruct movement
 class Platform(Sprite):
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, w, h, c):
         Sprite.__init__(self)
         self.image = pg.Surface((w, h))
-        self.image.fill(BLUE)
+        self.xlength = w
+        self.ylength = h
+        self.image.fill(c)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -185,13 +187,16 @@ player = Player()
 # w12 = Platform(400, 20, 20, 180)
 # w13 = Platform(1020, 20, 20, 180)
 
-t1 = Platform (400, 400, 240, 240)
-t2 = Platform (800, 400, 240, 100)
+t1 = Platform (400, 400, 240, 240, RED)
+t2 = Platform (800, 400, 240, 100, BLUE)
+t3 = Platform (200, 600, 100, 240, BLUE)
 
 all_sprites.add(t1)
 all_sprites.add(t2)
+all_sprites.add(t3)
 all_platforms.add(t1)
 all_platforms.add(t2)
+all_platforms.add(t3)
 
 # # -------------- adding instances to groups ----------------
 # ###### Adding player and platforms to sprite group,
