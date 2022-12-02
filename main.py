@@ -60,26 +60,41 @@ class Player(Sprite):
     # binds keys to movements made by square; holding key accelerates square in specific direction
     def controls(self):
         keys = pg.key.get_pressed()
-        if keys[pg.K_a]:
-            self.acc.y = 0
-            self.acc.x = -0.5
-        if keys[pg.K_d]:
-            self.acc.y = 0
-            self.acc.x = 0.5
-        if keys[pg.K_w]:
-            self.acc.y = -0.5
-        if keys[pg.K_s]:
-            self.acc.y = 0.5
+        if keys[pg.K_a] and keys[pg.K_w]:
+            self.acc.x = -1.05
+            self.acc.y = -1.05
+        elif keys[pg.K_w] and keys[pg.K_d]:
+            self.acc.x = 1.05
+            self.acc.y = -1.05
+        elif keys[pg.K_d] and keys[pg.K_s]:
+            self.acc.x = 1.05
+            self.acc.y = 1.05
+        elif keys[pg.K_s] and keys[pg.K_a]:
+            self.acc.x = -1.05
+            self.acc.y = 1.05
+        elif keys[pg.K_a]:
+            self.acc.x = -1.5
+        elif keys[pg.K_d]:
+            self.acc.x = 1.5
+        elif keys[pg.K_w]:
+            self.acc.y = -1.5
+        elif keys[pg.K_s]:
+            self.acc.y = 1.5
+        else:
+            self.vel.x = 0
+            self.vel.y = 0
             # friction to make sure speed does not fly out of hand; if not coded in, square would constantly
             # accelerate and move too fast for gameplay
-        self.acc.x += self.vel.x * -0.1
-        self.acc.y += self.vel.y * -0.1
+        self.acc.x += self.vel.x * -0.4
+        self.acc.y += self.vel.y * -0.4
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         #self.rect.x += self.xvel
         #self.rect.y += self.yvel
         self.rect.midbottom = self.pos
 # makes walls prevent player from moving in their space on x axis
+    # def facing(self):
+    #     if self.acc.x < 
     def collide_with_walls(self, dir):
         if dir == 'x':
             hits = pg.sprite.spritecollide(self, all_platforms, False)
@@ -167,10 +182,10 @@ all_mobs = pg.sprite.Group()
 # ------------------- instantiate classes -------------------------
 player = Player()
 # # side walls: main boundry
-# leftborder = Platform(0, 0, 20, 880)
-# rightborder = Platform(1420, 0, 1440, 880)
-# topborder = Platform(0, 0, 1440, 20)
-# bottomborder = Platform(0, 860, 1440, 20)
+leftborder = Platform(0, 0, 20, 880, MURK)
+rightborder = Platform(1420, 0, 1440, 880, WHITE)
+topborder = Platform(0, 0, 1440, 20, TURQ)
+bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 
 # #innerwalls: inner boundrys, create 'rooms'
 # w1 = Platform(460, 500, 20, 220)
@@ -201,10 +216,10 @@ all_platforms.add(t3)
 # # -------------- adding instances to groups ----------------
 # ###### Adding player and platforms to sprite group,
 # all_sprites.add(player)
-# all_sprites.add(leftborder)
-# all_sprites.add(rightborder)
-# all_sprites.add(topborder)
-# all_sprites.add(bottomborder)
+all_sprites.add(leftborder)
+all_sprites.add(rightborder)
+all_sprites.add(topborder)
+all_sprites.add(bottomborder)
 # all_sprites.add(w1)
 # all_sprites.add(w2)
 # all_sprites.add(w3)
@@ -220,10 +235,10 @@ all_platforms.add(t3)
 # all_sprites.add(w13)
 # ###### Adding platforms to platforms group
 
-# all_platforms.add(leftborder)
-# all_platforms.add(rightborder)
-# all_platforms.add(topborder)
-# all_platforms.add(bottomborder)
+all_platforms.add(leftborder)
+all_platforms.add(rightborder)
+all_platforms.add(topborder)
+all_platforms.add(bottomborder)
 # all_platforms.add(w1)
 # all_platforms.add(w2)
 # all_platforms.add(w3)
