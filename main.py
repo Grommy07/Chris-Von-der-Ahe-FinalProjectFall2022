@@ -149,7 +149,7 @@ class Player(Sprite):
         self.hitx = self.hitx
         self.hity = self.hity
 
-# platforms: simple rectangles and obstruct movement
+#platforms: simple rectangles and obstruct movement
 class Platform(Sprite):
     def __init__(self, x, y, w, h, c):
         Sprite.__init__(self)
@@ -160,12 +160,6 @@ class Platform(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
-
-
-    
-        
-
 # init pygame and create a window
 pg.init()
 pg.mixer.init()
@@ -216,10 +210,10 @@ all_platforms.add(t3)
 # # -------------- adding instances to groups ----------------
 # ###### Adding player and platforms to sprite group,
 # all_sprites.add(player)
-all_sprites.add(leftborder)
-all_sprites.add(rightborder)
-all_sprites.add(topborder)
-all_sprites.add(bottomborder)
+# all_sprites.add(leftborder)
+# all_sprites.add(rightborder)
+# all_sprites.add(topborder)
+# all_sprites.add(bottomborder)
 # all_sprites.add(w1)
 # all_sprites.add(w2)
 # all_sprites.add(w3)
@@ -235,10 +229,10 @@ all_sprites.add(bottomborder)
 # all_sprites.add(w13)
 # ###### Adding platforms to platforms group
 
-all_platforms.add(leftborder)
-all_platforms.add(rightborder)
-all_platforms.add(topborder)
-all_platforms.add(bottomborder)
+# all_platforms.add(leftborder)
+# all_platforms.add(rightborder)
+# all_platforms.add(topborder)
+# all_platforms.add(bottomborder)
 # all_platforms.add(w1)
 # all_platforms.add(w2)
 # all_platforms.add(w3)
