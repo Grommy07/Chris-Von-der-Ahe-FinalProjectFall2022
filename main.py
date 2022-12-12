@@ -60,9 +60,15 @@ class Player(Sprite):
     # binds keys to movements made by square; holding key accelerates square in specific direction
     def controls(self):
         keys = pg.key.get_pressed()
-        if keys[pg.K_a] and keys[pg.K_w] and [pg.K_d]:
-            
-        elif keys[pg.K_a] and keys[pg.K_w]:
+        #akt = 0
+        #if keys keys[pg.K_a] and keys[pg.K_w] and [pg.K_d] and [pg.k_s]:
+            #self.acc.x = 0
+            #self.acc.y = 0
+            #atk = 1
+#attack controls
+    
+#diagnol directional controls
+        if keys[pg.K_a] and keys[pg.K_w]:
             self.acc.x = -1.05
             self.acc.y = -1.05
         elif keys[pg.K_w] and keys[pg.K_d]:
@@ -74,6 +80,7 @@ class Player(Sprite):
         elif keys[pg.K_s] and keys[pg.K_a]:
             self.acc.x = -1.05
             self.acc.y = 1.05
+#generic directional controls
         elif keys[pg.K_a]:
             self.acc.x = -1.5
         elif keys[pg.K_d]:
