@@ -1,3 +1,4 @@
+# CHRIS VON DER AHE
 # content from kids can code: http://kidscancode.org/blog/
 # Mr. Cozort
 
@@ -65,10 +66,15 @@ class Player(Sprite):
             #self.acc.x = 0
             #self.acc.y = 0
             #atk = 1
+
+
+
 #attack controls
+        if keys [pg.K_UP]
+            
     
 #diagnol directional controls
-        if keys[pg.K_a] and keys[pg.K_w]:
+        elif keys[pg.K_a] and keys[pg.K_w]:
             self.acc.x = -1.05
             self.acc.y = -1.05
         elif keys[pg.K_w] and keys[pg.K_d]:
