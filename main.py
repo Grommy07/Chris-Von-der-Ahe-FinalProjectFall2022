@@ -59,22 +59,24 @@ class Player(Sprite):
         self.hity = 0
         self.colliding = False
     # binds keys to movements made by square; holding key accelerates square in specific direction
+    # class Attack(Sprite):
+    #     def __init__(self, x, y, w, h):
+    #         Sprite.__init__(self)
+    #         self.image = pg.Surface((w, h))
+    #         self.xlength = Aw
+    #         self.ylength = Ah
+    #         self.image.fill(RED)
+    #         self.rect = self.image.get_rect()
+    #         self.rect.x = Ax
+    #         self.rect.y = Ay
+    
     def controls(self):
         keys = pg.key.get_pressed()
-        #akt = 0
-        #if keys keys[pg.K_a] and keys[pg.K_w] and [pg.K_d] and [pg.k_s]:
-            #self.acc.x = 0
-            #self.acc.y = 0
-            #atk = 1
-
-
-
-#attack controls
-        if keys [pg.K_UP]
-            
+        akt = 0
+        
     
 #diagnol directional controls
-        elif keys[pg.K_a] and keys[pg.K_w]:
+        if keys[pg.K_a] and keys[pg.K_w]:
             self.acc.x = -1.05
             self.acc.y = -1.05
         elif keys[pg.K_w] and keys[pg.K_d]:
@@ -89,15 +91,20 @@ class Player(Sprite):
 #generic directional controls
         elif keys[pg.K_a]:
             self.acc.x = -1.5
+            atk = 2
         elif keys[pg.K_d]:
             self.acc.x = 1.5
+            atk = 3
         elif keys[pg.K_w]:
             self.acc.y = -1.5
+            atk = 4
         elif keys[pg.K_s]:
             self.acc.y = 1.5
+            atk = 5
         else:
             self.vel.x = 0
             self.vel.y = 0
+            atk = 0
             # friction to make sure speed does not fly out of hand; if not coded in, square would constantly
             # accelerate and move too fast for gameplay
         self.acc.x += self.vel.x * -0.4
@@ -198,19 +205,19 @@ topborder = Platform(0, 0, 1440, 20, TURQ)
 bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 
 # #innerwalls: inner boundrys, create 'rooms'
-# w1 = Platform(460, 500, 20, 220)
-# w2 = Platform(960, 500, 20, 220)
-# w3 = Platform(480, 620, 160, 20)
-# w4 = Platform(800, 620, 160, 20)
-# w5 = Platform(20, 480, 180, 20)
-# w6 = Platform(320, 480, 160, 20)
-# w7 = Platform(960, 480, 160, 20)
-# w8 = Platform(1240, 480, 180, 20)
-# w9 = Platform(400, 320, 20, 160)
-# w10 = Platform(1020, 320, 20, 160)
-# w11 = Platform(620, 160, 200, 200)
-# w12 = Platform(400, 20, 20, 180)
-# w13 = Platform(1020, 20, 20, 180)
+# w1 = Platform(460, 500, 20, 220, BLUE)
+# w2 = Platform(960, 500, 20, 220, BLUE)
+# w3 = Platform(480, 620, 160, 20, BLUE)
+# w4 = Platform(800, 620, 160, 20, BLUE)
+# w5 = Platform(20, 480, 180, 20, BLUE)
+# w6 = Platform(320, 480, 160, 20, BLUE)
+# w7 = Platform(960, 480, 160, 20, BLUE)
+# w8 = Platform(1240, 480, 180, 20, BLUE)
+# w9 = Platform(400, 320, 20, 160, BLUE)
+# w10 = Platform(1020, 320, 20, 160, BLUE)
+# w11 = Platform(620, 160, 200, 200, BLUE)
+# w12 = Platform(400, 20, 20, 180, BLUE)
+# w13 = Platform(1020, 20, 20, 180, BLUE)
 
 t1 = Platform (400, 400, 240, 240, RED)
 t2 = Platform (800, 400, 240, 100, BLUE)
@@ -307,7 +314,8 @@ while running:
     # draw the background screen
     screen.fill(BLACK)
     # draw text
-    draw_text("POINTS: " + str(SCORE), 22, WHITE, WIDTH / 2, HEIGHT / 24)
+    draw_text("POINTS: " + (Player.controls.atk), 22, WHITE, WIDTH / 2, HEIGHT / 24)
+
     # draw all sprites
     all_sprites.draw(screen)
 
