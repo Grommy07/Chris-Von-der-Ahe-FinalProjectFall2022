@@ -220,13 +220,16 @@ bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 t1 = Platform (400, 400, 240, 240, RED)
 t2 = Platform (800, 400, 240, 100, BLUE)
 t3 = Platform (200, 600, 100, 240, BLUE)
+t4 = Platform (900, 500, 20, 20, RED)
 
 all_sprites.add(t1)
 all_sprites.add(t2)
 all_sprites.add(t3)
+all_sprites.add(t4)
 all_platforms.add(t1)
 all_platforms.add(t2)
 all_platforms.add(t3)
+all_platforms.add(t4)
 
 # def multiwalls(nam, Ax, Ay, cm):
 #     nam = Platform (Ax, Ay, 40, 40, cm) =

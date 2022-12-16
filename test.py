@@ -51,7 +51,7 @@ class Platform(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.pos = vec(w/2, h/2)
+        self.pos = (x + w/2, y + h/2)
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.hitx = 0
@@ -61,7 +61,7 @@ class Platform(Sprite):
     def controls(self):
         keys = pg.key.get_pressed()
       
-        
+
     
 #diagnol directional controls
         if keys[pg.K_a] and keys[pg.K_w]:
@@ -172,6 +172,58 @@ class Player(Sprite):
         self.hitx = 0
         self.hity = 0
         self.colliding = False
+
+    def collide_with_walls(self, dir):
+        if dir == 'x':
+            hits = pg.sprite.spritecollide(self, all_platforms, False)
+            if hits:
+                self.colliding = True
+                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
+                ydiff = abs(self.rect.centery - hits[0].rect.centery)
+                if hits[0].rect.centerx > self.rect.centerx and xdiff > ydiff:
+                    self.pos.x = hits[0].rect.left - self.rect.width/2
+                if hits[0].rect.centerx < self.rect.centerx and xdiff > ydiff:
+                    self.pos.x = hits[0].rect.right + self.rect.width/2 
+                self.vel.x = 0
+                self.centerx = self.pos.x
+                self.hitx = hits[0].rect.centerx
+                self.hity = hits[0].rect.centery
+            else:
+                self.colliding = False
+
+# makes walls prevent player from moving in their space on y axis
+        if dir == 'y':
+            hits = pg.sprite.spritecollide(self, Platform(x, y, w, h, c), False)
+            if hits:
+                self.colliding = True
+                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
+                ydiff = abs(self.rect.centery - hits[0].rect.centery)
+                if hits[0].rect.centery > self.rect.centery and xdiff < ydiff:
+                    self.pos.y = hits[0].rect.top - self.rect.height/2
+                if hits[0].rect.centery < self.rect.centery and xdiff < ydiff:
+                    self.pos.y = hits[0].rect.bottom + self.rect.height/2
+                self.vel.y = 0
+                self.centery = self.pos.y
+                self.hitx = hits[0].rect.centerx
+                self.hity = hits[0].rect.centery
+            else:
+                self.colliding = False
+
+# sprites: player controlled square and boundries
+class Player(Sprite):
+    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
+    def __init__(self):
+        Sprite.__init__(self)
+        self.image = pg.Surface((40, 40))
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.vel = vec(0,0)
+        self.acc = vec(0,0)
+        self.hitx = 0
+        self.hity = 0
+        self.colliding = False
     # binds keys to movements made by square; holding key accelerates square in specific direction
     # class Attack(Sprite):
     #     def __init__(self, x, y, w, h):
@@ -200,7 +252,7 @@ class Player(Sprite):
 pg.init()
 pg.mixer.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT))
-pg.display.set_caption("My Game...")
+pg.display.set_caption("Topdown Stealth Game")
 clock = pg.time.Clock()
   
 # create groups: used to organize interactions between player and walls
@@ -212,10 +264,10 @@ all_mobs = pg.sprite.Group()
 # ------------------- instantiate classes -------------------------
 player = Player()
 # # side walls: main boundry
-leftborder = Platform(0, 0, 20, 880, MURK)
-rightborder = Platform(1420, 0, 1440, 880, WHITE)
-topborder = Platform(0, 0, 1440, 20, TURQ)
-bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
+# leftborder = Platform(0, 0, 20, 880, MURK)
+# rightborder = Platform(1420, 0, 1440, 880, WHITE)
+# topborder = Platform(0, 0, 1440, 20, TURQ)
+# bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 
 # #innerwalls: inner boundrys, create 'rooms'
 # w1 = Platform(460, 500, 20, 220, BLUE)
@@ -232,16 +284,17 @@ bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 # w12 = Platform(400, 20, 20, 180, BLUE)
 # w13 = Platform(1020, 20, 20, 180, BLUE)
 
-t1 = Platform (400, 400, 240, 240, RED)
-t2 = Platform (800, 400, 240, 100, BLUE)
-t3 = Platform (200, 600, 100, 240, BLUE)
+# t1 = Platform (400, 400, 240, 240, RED)
+# t2 = Platform (800, 400, 240, 100, BLUE)
+# t3 = Platform (200, 600, 100, 240, BLUE)
 
-all_sprites.add(t1)
-all_sprites.add(t2)
-all_sprites.add(t3)
-all_platforms.add(t1)
-all_platforms.add(t2)
-all_platforms.add(t3)
+# all_sprites.add(t1)
+# all_sprites.add(t2)
+# all_sprites.add(t3)
+# all_platforms.add(t1)
+# all_platforms.add(t2)
+# all_platforms.add(t3)
+# all_platforms.add(player)
 
 # def multiwalls(nam, Ax, Ay, cm):
 #     nam = Platform (Ax, Ay, 40, 40, cm) =
@@ -257,10 +310,10 @@ all_platforms.add(t3)
 # # -------------- adding instances to groups ----------------
 # ###### Adding player and platforms to sprite group,
 # all_sprites.add(player)
-all_sprites.add(leftborder)
-all_sprites.add(rightborder)
-all_sprites.add(topborder)
-all_sprites.add(bottomborder)
+# all_sprites.add(leftborder)
+# all_sprites.add(rightborder)
+# all_sprites.add(topborder)
+# all_sprites.add(bottomborder)
 # all_sprites.add(w1)
 # all_sprites.add(w2)
 # all_sprites.add(w3)
@@ -276,10 +329,10 @@ all_sprites.add(bottomborder)
 # all_sprites.add(w13)
 # ###### Adding platforms to platforms group
 
-all_platforms.add(leftborder)
-all_platforms.add(rightborder)
-all_platforms.add(topborder)
-all_platforms.add(bottomborder)
+# all_platforms.add(leftborder)
+# all_platforms.add(rightborder)
+# all_platforms.add(topborder)
+# all_platforms.add(bottomborder)
 # all_platforms.add(w1)
 # all_platforms.add(w2)
 # all_platforms.add(w3)
