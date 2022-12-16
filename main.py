@@ -7,18 +7,14 @@
 import pygame as pg
 from pygame.sprite import Sprite
 import random
-
+from settings import HEIGHT
+from settings import WIDTH
+from settings import FPS
+from settings import PLAYER_FRIC
+from settings import PLAYER_GRAV
 vec = pg.math.Vector2
 
-# game settings: Screen size and frames per second
-WIDTH = 1440
-HEIGHT = 880
-FPS = 30
 
-# player settings: 
-PLAYER_GRAV = 0.0
-PLAYER_FRIC = 0.1
-SCORE = 0
 
 # define colors
 WHITE = (255, 255, 255)
@@ -69,10 +65,10 @@ class Player(Sprite):
     #         self.rect = self.image.get_rect()
     #         self.rect.x = Ax
     #         self.rect.y = Ay
-    
+    atk = 0
     def controls(self):
         keys = pg.key.get_pressed()
-        #atk == 0
+      
         
     
 #diagnol directional controls
@@ -91,20 +87,20 @@ class Player(Sprite):
 #generic directional controls
         elif keys[pg.K_a]:
             self.acc.x = -1.5
-            #atk == 2
+            atk = 2
         elif keys[pg.K_d]:
             self.acc.x = 1.5
-            #atk == 3
+            atk = 3
         elif keys[pg.K_w]:
             self.acc.y = -1.5
-            #atk == 4
+            atk = 4
         elif keys[pg.K_s]:
             self.acc.y = 1.5
-            #atk == 5
+            atk = 5
         else:
             self.vel.x = 0
             self.vel.y = 0
-            #atk == 0
+            atk = 0
             # friction to make sure speed does not fly out of hand; if not coded in, square would constantly
             # accelerate and move too fast for gameplay
         self.acc.x += self.vel.x * -0.4
@@ -314,7 +310,7 @@ while running:
     # draw the background screen
     screen.fill(BLACK)
     # draw text
-    draw_text("POINTS: " + '(Player.controls.atk)', 22, WHITE, WIDTH / 2, HEIGHT / 24)
+    draw_text("POINTS: " + (Player.atk)), 22, WHITE, WIDTH / 2, HEIGHT / 24
 
     # + (Player.controls.atk)
 
