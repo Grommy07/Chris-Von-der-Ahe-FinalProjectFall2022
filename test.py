@@ -58,33 +58,6 @@ class Platform(Sprite):
         self.hity = 0
         self.colliding = False
 
-# sprites: player controlled square and boundries
-class Player(Sprite):
-    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
-    def __init__(self):
-        Sprite.__init__(self)
-        self.image = pg.Surface((40, 40))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(0,0)
-        self.acc = vec(0,0)
-        self.hitx = 0
-        self.hity = 0
-        self.colliding = False
-    # binds keys to movements made by square; holding key accelerates square in specific direction
-    # class Attack(Sprite):
-    #     def __init__(self, x, y, w, h):
-    #         Sprite.__init__(self)
-    #         self.image = pg.Surface((w, h))
-    #         self.xlength = Aw
-    #         self.ylength = Ah
-    #         self.image.fill(RED)
-    #         self.rect = self.image.get_rect()
-    #         self.rect.x = Ax
-    #         self.rect.y = Ay
-    
     def controls(self):
         keys = pg.key.get_pressed()
       
@@ -92,29 +65,29 @@ class Player(Sprite):
     
 #diagnol directional controls
         if keys[pg.K_a] and keys[pg.K_w]:
-            self.acc.x = -1.05
-            self.acc.y = -1.05
+            self.acc.x = 1.05
+            self.acc.y = 1.05
         elif keys[pg.K_w] and keys[pg.K_d]:
-            self.acc.x = 1.05
-            self.acc.y = -1.05
-        elif keys[pg.K_d] and keys[pg.K_s]:
-            self.acc.x = 1.05
-            self.acc.y = 1.05
-        elif keys[pg.K_s] and keys[pg.K_a]:
             self.acc.x = -1.05
             self.acc.y = 1.05
+        elif keys[pg.K_d] and keys[pg.K_s]:
+            self.acc.x = -1.05
+            self.acc.y = -1.05
+        elif keys[pg.K_s] and keys[pg.K_a]:
+            self.acc.x = 1.05
+            self.acc.y = -1.05
 #generic directional controls
         elif keys[pg.K_a]:
-            self.acc.x = -1.5
+            self.acc.x = 1.5
             atk = 1
         elif keys[pg.K_d]:
-            self.acc.x = 1.5
+            self.acc.x = -1.5
             atk = 2
         elif keys[pg.K_w]:
-            self.acc.y = -1.5
+            self.acc.y = 1.5
             atk = 3
         elif keys[pg.K_s]:
-            self.acc.y = 1.5
+            self.acc.y = -1.5
             atk = 4
         else:
             self.vel.x = 0
@@ -130,9 +103,24 @@ class Player(Sprite):
         #self.rect.x += self.xvel
         #self.rect.y += self.yvel
         self.rect.midbottom = self.pos
-# makes walls prevent player from moving in their space on x axis
-    # def facing(self):
-    #     if self.acc.x < 
+
+    def update(self):
+        self.acc = vec(0,0)
+        self.controls()
+        # friction
+        self.rect.center = self.pos
+        self.acc += self.vel * PLAYER_FRIC
+        self.vel += self.acc
+        self.pos += self.vel + 0.5 * self.acc
+        self.rect.centerx = self.pos.x
+        self.collide_with_walls('x')
+        self.rect.centery = self.pos.y
+        self.collide_with_walls('y')
+        self.rect.center = self.pos
+        self.hitx = self.hitx
+        self.hity = self.hity
+
+
     def collide_with_walls(self, dir):
         if dir == 'x':
             hits = pg.sprite.spritecollide(self, all_platforms, False)
@@ -169,23 +157,42 @@ class Player(Sprite):
             else:
                 self.colliding = False
 
+# sprites: player controlled square and boundries
+class Player(Sprite):
+    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
+    def __init__(self):
+        Sprite.__init__(self)
+        self.image = pg.Surface((40, 40))
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.vel = vec(0,0)
+        self.acc = vec(0,0)
+        self.hitx = 0
+        self.hity = 0
+        self.colliding = False
+    # binds keys to movements made by square; holding key accelerates square in specific direction
+    # class Attack(Sprite):
+    #     def __init__(self, x, y, w, h):
+    #         Sprite.__init__(self)
+    #         self.image = pg.Surface((w, h))
+    #         self.xlength = Aw
+    #         self.ylength = Ah
+    #         self.image.fill(RED)
+    #         self.rect = self.image.get_rect()
+    #         self.rect.x = Ax
+    #         self.rect.y = Ay
+    
+    
+# makes walls prevent player from moving in their space on x axis
+    # def facing(self):
+    #     if self.acc.x < 
+    
+
  
     #defines changes to the square that will happen upon movement and collisions both directly and intirectly caused by input
-    def update(self):
-        self.acc = vec(0,0)
-        self.controls()
-        # friction
-        self.rect.center = self.pos
-        self.acc += self.vel * PLAYER_FRIC
-        self.vel += self.acc
-        self.pos += self.vel + 0.5 * self.acc
-        self.rect.centerx = self.pos.x
-        self.collide_with_walls('x')
-        self.rect.centery = self.pos.y
-        self.collide_with_walls('y')
-        self.rect.center = self.pos
-        self.hitx = self.hitx
-        self.hity = self.hity
+  
 
 
 
