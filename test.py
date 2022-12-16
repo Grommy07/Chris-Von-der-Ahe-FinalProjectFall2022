@@ -40,6 +40,18 @@ def draw_text(text, size, color, x, y):
         text_rect.midtop = (x, y)
         screen.blit(text_surface, text_rect)
 
+#platforms: simple rectangles and obstruct movement
+class Platform(Sprite):
+    def __init__(self, x, y, w, h, c):
+        Sprite.__init__(self)
+        self.image = pg.Surface((w, h))
+        self.xlength = w
+        self.ylength = h
+        self.image.fill(c)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
 # sprites: player controlled square and boundries
 class Player(Sprite):
     #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
@@ -169,17 +181,7 @@ class Player(Sprite):
         self.hitx = self.hitx
         self.hity = self.hity
 
-#platforms: simple rectangles and obstruct movement
-class Platform(Sprite):
-    def __init__(self, x, y, w, h, c):
-        Sprite.__init__(self)
-        self.image = pg.Surface((w, h))
-        self.xlength = w
-        self.ylength = h
-        self.image.fill(c)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+
 
 # init pygame and create a window
 pg.init()
