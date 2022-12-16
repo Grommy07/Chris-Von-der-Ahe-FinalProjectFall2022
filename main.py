@@ -30,6 +30,7 @@ DARKLAVA = (77, 13, 0)
 #places colors in a group for easy access
 colorlist = (WHITE, BLACK, RED, GREEN, BLUE, TURQ, MURK, DARKLAVA)
 
+atk = 0
 
 def draw_text(text, size, color, x, y):
         font_name = pg.font.match_font('arial')
@@ -65,7 +66,7 @@ class Player(Sprite):
     #         self.rect = self.image.get_rect()
     #         self.rect.x = Ax
     #         self.rect.y = Ay
-    atk = 0
+    
     def controls(self):
         keys = pg.key.get_pressed()
       
@@ -87,16 +88,16 @@ class Player(Sprite):
 #generic directional controls
         elif keys[pg.K_a]:
             self.acc.x = -1.5
-            atk = 2
+            atk = 1
         elif keys[pg.K_d]:
             self.acc.x = 1.5
-            atk = 3
+            atk = 2
         elif keys[pg.K_w]:
             self.acc.y = -1.5
-            atk = 4
+            atk = 3
         elif keys[pg.K_s]:
             self.acc.y = 1.5
-            atk = 5
+            atk = 4
         else:
             self.vel.x = 0
             self.vel.y = 0
@@ -310,7 +311,7 @@ while running:
     # draw the background screen
     screen.fill(BLACK)
     # draw text
-    draw_text("POINTS: " + (Player.atk)), 22, WHITE, WIDTH / 2, HEIGHT / 24
+    draw_text("POINTS: " + str(atk), 22, WHITE, WIDTH / 2, HEIGHT / 24)
 
     # + (Player.controls.atk)
 
