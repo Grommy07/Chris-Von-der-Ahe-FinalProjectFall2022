@@ -51,6 +51,12 @@ class Platform(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.pos = vec(w/2, h/2)
+        self.vel = vec(0,0)
+        self.acc = vec(0,0)
+        self.hitx = 0
+        self.hity = 0
+        self.colliding = False
 
 # sprites: player controlled square and boundries
 class Player(Sprite):
