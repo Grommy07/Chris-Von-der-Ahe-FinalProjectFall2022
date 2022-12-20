@@ -114,14 +114,66 @@ class Platform(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.centerx = self.pos.x
-        self.collide_with_walls('x')
+        #self.collide_with_walls('x')
         self.rect.centery = self.pos.y
-        self.collide_with_walls('y')
+        #self.collide_with_walls('y')
         self.rect.center = self.pos
         self.hitx = self.hitx
         self.hity = self.hity
 
 
+#     def collide_with_walls(self, dir):
+#         if dir == 'x':
+#             hits = pg.sprite.spritecollide(self, all_platforms, False)
+#             if hits:
+#                 self.colliding = True
+#                 xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
+#                 ydiff = abs(self.rect.centery - hits[0].rect.centery)
+#                 if hits[0].rect.centerx > self.rect.centerx and xdiff > ydiff:
+#                     self.pos.x = hits[0].rect.left - self.rect.width/2
+#                 if hits[0].rect.centerx < self.rect.centerx and xdiff > ydiff:
+#                     self.pos.x = hits[0].rect.right + self.rect.width/2 
+#                 self.vel.x = 0
+#                 self.centerx = self.pos.x
+#                 self.hitx = hits[0].rect.centerx
+#                 self.hity = hits[0].rect.centery
+#             else:
+#                 self.colliding = False
+
+# # makes walls prevent player from moving in their space on y axis
+#         if dir == 'y':
+#             hits = pg.sprite.spritecollide(self, all_platforms, False)
+#             if hits:
+#                 self.colliding = True
+#                 xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
+#                 ydiff = abs(self.rect.centery - hits[0].rect.centery)
+#                 if hits[0].rect.centery > self.rect.centery and xdiff < ydiff:
+#                     self.pos.y = hits[0].rect.top - self.rect.height/2
+#                 if hits[0].rect.centery < self.rect.centery and xdiff < ydiff:
+#                     self.pos.y = hits[0].rect.bottom + self.rect.height/2
+#                 self.vel.y = 0
+#                 self.centery = self.pos.y
+#                 self.hitx = hits[0].rect.centerx
+#                 self.hity = hits[0].rect.centery
+#             else:
+#                 self.colliding = False
+
+# sprites: player controlled square and boundries
+class Player(Sprite):
+    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
+    def __init__(self):
+        Sprite.__init__(self)
+        self.image = pg.Surface((40, 40))
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH/2, HEIGHT/2)
+        self.pos = vec(WIDTH/2, HEIGHT/2)
+        self.vel = vec(0,0)
+        self.acc = vec(0,0)
+        self.hitx = 0
+        self.hity = 0
+        self.colliding = False
+
     def collide_with_walls(self, dir):
         if dir == 'x':
             hits = pg.sprite.spritecollide(self, all_platforms, False)
@@ -159,72 +211,20 @@ class Platform(Sprite):
                 self.colliding = False
 
 # sprites: player controlled square and boundries
-class Player(Sprite):
-    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
-    def __init__(self):
-        Sprite.__init__(self)
-        self.image = pg.Surface((40, 40))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(0,0)
-        self.acc = vec(0,0)
-        self.hitx = 0
-        self.hity = 0
-        self.colliding = False
-
-    def collide_with_walls(self, dir):
-        if dir == 'x':
-            hits = pg.sprite.spritecollide(self, all_platforms, False)
-            if hits:
-                self.colliding = True
-                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
-                ydiff = abs(self.rect.centery - hits[0].rect.centery)
-                if hits[0].rect.centerx > self.rect.centerx and xdiff > ydiff:
-                    self.pos.x = hits[0].rect.left - self.rect.width/2
-                if hits[0].rect.centerx < self.rect.centerx and xdiff > ydiff:
-                    self.pos.x = hits[0].rect.right + self.rect.width/2 
-                self.vel.x = 0
-                self.centerx = self.pos.x
-                self.hitx = hits[0].rect.centerx
-                self.hity = hits[0].rect.centery
-            else:
-                self.colliding = False
-
-# makes walls prevent player from moving in their space on y axis
-        if dir == 'y':
-            hits = pg.sprite.spritecollide(self, Platform(x, y, w, h, c), False)
-            if hits:
-                self.colliding = True
-                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
-                ydiff = abs(self.rect.centery - hits[0].rect.centery)
-                if hits[0].rect.centery > self.rect.centery and xdiff < ydiff:
-                    self.pos.y = hits[0].rect.top - self.rect.height/2
-                if hits[0].rect.centery < self.rect.centery and xdiff < ydiff:
-                    self.pos.y = hits[0].rect.bottom + self.rect.height/2
-                self.vel.y = 0
-                self.centery = self.pos.y
-                self.hitx = hits[0].rect.centerx
-                self.hity = hits[0].rect.centery
-            else:
-                self.colliding = False
-
-# sprites: player controlled square and boundries
-class Player(Sprite):
-    #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
-    def __init__(self):
-        Sprite.__init__(self)
-        self.image = pg.Surface((40, 40))
-        self.image.fill(GREEN)
-        self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH/2, HEIGHT/2)
-        self.pos = vec(WIDTH/2, HEIGHT/2)
-        self.vel = vec(0,0)
-        self.acc = vec(0,0)
-        self.hitx = 0
-        self.hity = 0
-        self.colliding = False
+# class Player(Sprite):
+#     #lays out rules for creation and collision of square on screen, inserts characteristics such as size and color
+#     def __init__(self):
+#         Sprite.__init__(self)
+#         self.image = pg.Surface((40, 40))
+#         self.image.fill(GREEN)
+#         self.rect = self.image.get_rect()
+#         self.rect.center = (WIDTH/2, HEIGHT/2)
+#         self.pos = vec(WIDTH/2, HEIGHT/2)
+#         self.vel = vec(0,0)
+#         self.acc = vec(0,0)
+#         self.hitx = 0
+#         self.hity = 0
+#         self.colliding = False
     # binds keys to movements made by square; holding key accelerates square in specific direction
     # class Attack(Sprite):
     #     def __init__(self, x, y, w, h):
@@ -266,7 +266,7 @@ all_mobs = pg.sprite.Group()
 player = Player()
 # # side walls: main boundry
 leftborder = Platform(0, 0, 20, 880, MURK)
-rightborder = Platform(1420, 0, 1440, 880, WHITE)
+rightborder = Platform(1420, 0, 20, 880, WHITE)
 topborder = Platform(0, 0, 1440, 20, TURQ)
 bottomborder = Platform(0, 860, 1440, 20, DARKLAVA)
 
@@ -380,7 +380,7 @@ while running:
     # draw the background screen
     screen.fill(BLACK)
     # draw text
-    draw_text("POINTS: " + str(atk), 22, WHITE, WIDTH / 2, HEIGHT / 24)
+    # draw_text("POINTS: " + str(atk), 22, WHITE, WIDTH / 2, HEIGHT / 24)
 
     # + (Player.controls.atk)
 
