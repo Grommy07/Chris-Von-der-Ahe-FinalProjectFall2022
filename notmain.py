@@ -86,22 +86,20 @@ class Player(Sprite):
             self.acc.x = -1.05
             self.acc.y = 1.05
 #generic directional controls
-        elif keys[pg.K_a]:
-            self.acc.x = -1.5
-            atk = 1
-        elif keys[pg.K_d]:
-            self.acc.x = 1.5
-            atk = 2
-        elif keys[pg.K_w]:
-            self.acc.y = -1.5
-            atk = 3
-        elif keys[pg.K_s]:
-            self.acc.y = 1.5
-            atk = 4
-        else:
-            self.vel.x = 0
-            self.vel.y = 0
-            atk = 0
+        # elif keys[pg.K_a]:
+        #     self.acc.x = -1.5
+        #     atk = 1
+        # elif keys[pg.K_d]:
+        #     self.acc.x = 1.5
+        #     atk = 2
+        # elif keys[pg.K_w]:
+        #     self.acc.y = -1.5
+        #     atk = 3
+        # elif keys[pg.K_s]:
+        #     self.acc.y = 1.5
+        # else:
+        #     self.vel.x = 0
+        #     self.vel.y = 0
          
             # friction to make sure speed does not fly out of hand; if not coded in, square would constantly
             # accelerate and move too fast for gameplay

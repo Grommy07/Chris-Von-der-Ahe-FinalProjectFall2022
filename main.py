@@ -32,15 +32,16 @@ colorlist = (WHITE, BLACK, RED, GREEN, BLUE, TURQ, MURK, DARKLAVA)
 
 atk = 0
 
-def draw_text(text, size, color, x, y):
-        font_name = pg.font.match_font('arial')
-        font = pg.font.Font(font_name, size)
-        text_surface = font.render(text, True, color)
-        text_rect = text_surface.get_rect()
-        text_rect.midtop = (x, y)
-        screen.blit(text_surface, text_rect)
+# def draw_text(text, size, color, x, y):
+#         font_name = pg.font.match_font('arial')
+#         font = pg.font.Font(font_name, size)
+#         text_surface = font.render(text, True, color)
+#         text_rect = text_surface.get_rect()
+#         text_rect.midtop = (x, y)
+#         screen.blit(text_surface, text_rect)
 
 #platforms: simple rectangles and obstruct movement
+#platforms move around player; player apperes to move while the platforms are the ones actually updating
 class Platform(Sprite):
     def __init__(self, x, y, w, h, c):
         Sprite.__init__(self)
@@ -355,7 +356,6 @@ all_platforms.add(w13)
     #print(m)
 
 # add player to all sprites group
-all_sprites.add(player)
 
 
 # Game loop; constantly updates screen based on inputs from player
